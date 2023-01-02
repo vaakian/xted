@@ -37,7 +37,7 @@ const Home: NextPage = () => {
             Type the <span className="font-extrabold text-[#e72b1e]">TED</span>
             &nbsp;
             <span className="underline">link</span> or{" "}
-            <span className="underline">title</span>&nbsp; below and get your
+            <span className="underline">title</span>&nbsp; below to get your
             transcript 🚀
           </h3>
 
