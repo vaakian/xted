@@ -38,7 +38,7 @@ const Home: NextPage = () => {
             &nbsp;
             <span className="underline">link</span> or{" "}
             <span className="underline">title</span>&nbsp; below to get your
-            transcript 🚀
+            transcript
           </h3>
 
           <div className="search flex w-screen justify-center">
@@ -60,9 +60,9 @@ const Home: NextPage = () => {
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
                 />
               </svg>

@@ -8,10 +8,10 @@ export default function Paragraphs({
   return (
     <>
       {paragraphs.map(([p1, p2], i) => (
-        <p key={i}>
+        <div key={i}>
           <p className="font-[Georgia]">{p1}</p>
           <p className="font-['SongTi_SC'] mb-2 text-gray-500">{p2}</p>
-        </p>
+        </div>
       ))}
     </>
   );
