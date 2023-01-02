@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
-// import { trpc } from "../utils/trpc";
+// import { trpc } from "@/utils/trpc";
 
 // https://www.ted.com/talks/tawanda_kanhema_my_journey_mapping_the_uncharted_world/transcript
 // https://www.ted.com/talks/tawanda_kanhema_my_journey_mapping_the_uncharted_world
@@ -47,6 +47,7 @@ function Form() {
         className="text-main-600 caret-main-500 shadow-main-300/90 placeholder:text-main-400 inline-block h-[3.1rem] w-[70%] max-w-2xl overflow-hidden rounded-2xl border-[1px] bg-gray-100 px-5 text-center text-xl font-medium text-gray-500 outline-none transition-all duration-300 placeholder:select-none placeholder:font-normal focus:border-gray-200 focus:bg-white focus:shadow-[0_0_1.5rem_var(--tw-shadow-color)]"
         placeholder="link or title"
         onChange={(e) => setLink(e.target.value)}
+        onKeyDown={(e) => (e.key === "Enter" ? handleLoad() : null)}
         value={link}
       ></input>
       <button

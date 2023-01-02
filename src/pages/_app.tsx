@@ -1,9 +1,9 @@
 import { type AppType } from "next/app";
 
-import { trpc } from "../utils/trpc";
+import { trpc } from "@/utils/trpc";
 
 import { Rubik } from '@next/font/google';
-import "../styles/globals.css";
+import "@/styles/globals.css";
 
 
 const rubik = Rubik({

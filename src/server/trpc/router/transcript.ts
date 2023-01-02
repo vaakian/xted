@@ -1,7 +1,7 @@
 import { z } from "zod";
 import fs from 'fs';
-import type { BilingualDetail} from "../../../utils/ted";
-import { getBilingualDetail } from "../../../utils/ted";
+import type { BilingualDetail} from "@/utils/ted";
+import { getBilingualDetail } from "@/utils/ted";
 
 import { router, publicProcedure } from "../trpc";
 
@@ -33,9 +33,9 @@ export const transcriptRouter = router({
   bilingualDetail: publicProcedure
   .input(z.object({ id: z.string() }))
   .query(async ({input}) => {
-    if (transcriptCache[input.id]) {
-      return transcriptCache[input.id]
-    }
+    // if (transcriptCache[input.id]) {
+    //   return transcriptCache[input.id]
+    // }
     const detail = await getBilingualDetail(input.id)
     if (detail) {
       transcriptCache[input.id] = detail
