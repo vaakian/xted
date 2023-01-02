@@ -8,3 +8,6 @@
     background-size: cover;
     /* top down opacity gradient */
 }
+* {
+    transition: .12s;
+}
