@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.home {
+    background-image: url('https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/d56cd032-6a33-4103-9f12-d79bbf727268/ShankarVedantam_2022-embed.jpg');
+    /* fit background */
+    background-size: cover;
+    /* top down opacity gradient */
+}
