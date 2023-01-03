@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import type { BilingualDetail } from "@/utils/ted";
+import type { BilingualDetail } from "@/utils/ted/ted";
 import Paragraphs from "./Paragraphs";
 
 export default function Talk({ data }: { data: BilingualDetail }) {

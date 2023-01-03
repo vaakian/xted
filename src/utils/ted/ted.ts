@@ -1,34 +1,19 @@
-export async function queryGraphql(query: string) {
-  const request = new Request("https://graphql.ted.com/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      operationName: null,
-      query,
-      variables: {},
-    }),
-  });
-  return (await fetch(request)).json();
-}
+import type { Cue, Paragraph } from "./schemas";
+import { getTranscript } from "./tedGraphql";
 
-export async function getTranscript(title: string, lang: string) {
-  const query = `{
-    translation(
-      language: "${lang}",
-      videoId: "${title}"
-    ) {
-      paragraphs {
-        cues {
-          text
-        }
-      }
-    }
-  }`;
-  const response = await queryGraphql(query);
-
-  return response as TranscriptResponse;
+export async function getBilingualDetail(
+  id = "brittney_cooper_the_racial_politics_of_time",
+  lang: [string, string] = ["en", "zh-cn"]
+) {
+  const [detail, paragraphs] = await Promise.all([
+    getDetail(id),
+    getBilingual(id, lang),
+  ]);
+  return {
+    ...detail,
+    paragraphs,
+    id,
+  };
 }
 
 export function joinCues(cues: Cue[], joiner = " ") {
@@ -91,39 +76,8 @@ async function getDetail(id = "brittney_cooper_the_racial_politics_of_time") {
   };
 }
 
-export async function getBilingualDetail(
-  id = "brittney_cooper_the_racial_politics_of_time",
-  lang: [string, string] = ["en", "zh-cn"]
-) {
-  const [detail, paragraphs] = await Promise.all([
-    getDetail(id),
-    getBilingual(id, lang),
-  ]);
-  return {
-    ...detail,
-    paragraphs,
-    id,
-  };
-}
-
 type InferPromise<T> = T extends Promise<infer U> ? U : T;
 
 export type BilingualDetail = InferPromise<
   ReturnType<typeof getBilingualDetail>
 >;
-
-type Cue = {
-  text: string;
-};
-
-type Paragraph = {
-  cues: Cue[];
-};
-
-interface TranscriptResponse {
-  data: {
-    translation: {
-      paragraphs: Paragraph[];
-    };
-  };
-}

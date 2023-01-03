@@ -34,7 +34,7 @@ const Home: NextPage = () => {
 };
 
 function Form() {
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState("brittney_cooper_the_racial_politics_of_time");
   const router = useRouter();
   function handleLoad() {
     const title = splitTedLink(link);

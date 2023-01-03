@@ -1,7 +1,7 @@
 import { z } from "zod";
-import fs from 'fs';
-import type { BilingualDetail} from "@/utils/ted";
-import { getBilingualDetail } from "@/utils/ted";
+import fs from "fs";
+import type { BilingualDetail } from "@/utils/ted/ted";
+import { getBilingualDetail } from "@/utils/ted/ted";
 
 import { router, publicProcedure } from "../trpc";
 
@@ -14,13 +14,16 @@ function readCache() {
   }
 }
 
-const transcriptCache: Record<string, BilingualDetail> = new Proxy(readCache(), {
-  set(target, key, value) {
-    target[key] = value;
-    fs.writeFileSync("./cache.json", JSON.stringify(target));
-    return true;
+const transcriptCache: Record<string, BilingualDetail> = new Proxy(
+  readCache(),
+  {
+    set(target, key, value) {
+      target[key] = value;
+      fs.writeFileSync("./cache.json", JSON.stringify(target));
+      return true;
+    },
   }
-})
+);
 
 export const transcriptRouter = router({
   hello: publicProcedure
@@ -31,15 +34,15 @@ export const transcriptRouter = router({
       };
     }),
   bilingualDetail: publicProcedure
-  .input(z.object({ id: z.string() }))
-  .query(async ({input}) => {
-    // if (transcriptCache[input.id]) {
-    //   return transcriptCache[input.id]
-    // }
-    const detail = await getBilingualDetail(input.id)
-    if (detail) {
-      transcriptCache[input.id] = detail
-    }
-    return detail
-  })
+    .input(z.object({ id: z.string() }))
+    .query(async ({ input }) => {
+      // if (transcriptCache[input.id]) {
+      //   return transcriptCache[input.id]
+      // }
+      const detail = await getBilingualDetail(input.id);
+      if (detail) {
+        transcriptCache[input.id] = detail;
+      }
+      return detail;
+    }),
 });
