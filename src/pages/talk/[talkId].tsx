@@ -2,15 +2,15 @@ import { type NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useEffect } from "react";
-import Talk from "../../components/Talk";
-import { trpc } from "../../utils/trpc";
+import Talk from "@/components/Talk";
+import { trpc } from "@/utils/trpc";
 import Link from "next/link";
 
 const TalkPage: NextPage = () => {
   const router = useRouter();
   const talkId = router.query.talkId as string;
 
-  const { data, isFetching, refetch } = trpc.example.bilingualDetail.useQuery(
+  const { data, isFetching, refetch } = trpc.transcript.bilingualDetail.useQuery(
     { id: talkId as string },
     { enabled: false, cacheTime: Infinity }
   );

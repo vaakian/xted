@@ -1,15 +1,37 @@
-export async function getTranscript(title: string, lang: string) {
-  return await fetch(
-    "https://www.ted.com/graphql?" +
-      new URLSearchParams({
-        operationName: "Transcript",
-        variables: `{"id":"${title}","language":"${lang}"}`,
-        extensions: `{"persistedQuery":{"version":1,"sha256Hash":"906b90e820733c27cab3bb5de1cb4578657af4610c346b235b4ece9e89dc88bd"}}`,
-      })
-  ).then((res) => res.json());
+export async function queryGraphql(query: string) {
+  const request = new Request("https://graphql.ted.com/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      operationName: null,
+      query,
+      variables: {},
+    }),
+  });
+  return (await fetch(request)).json();
 }
 
-export function joinCues(cues: any[], joiner = " ") {
+export async function getTranscript(title: string, lang: string) {
+  const query = `{
+    translation(
+      language: "${lang}",
+      videoId: "${title}"
+    ) {
+      paragraphs {
+        cues {
+          text
+        }
+      }
+    }
+  }`;
+  const response = await queryGraphql(query);
+
+  return response as TranscriptResponse;
+}
+
+export function joinCues(cues: Cue[], joiner = " ") {
   const isEn = !!joiner;
   return (
     cues
@@ -30,23 +52,22 @@ export async function getBilingual(
       getTranscript(id, lang[0]),
       getTranscript(id, lang[1]),
     ]);
-    console.log(origin, target);
     // 有英文 但没有中文，尝试台湾
     // 第二种情况：都有，但是无法配对
     if (origin.data.translation && target.data.translation === null) {
       // try to get zh-tw
       target = await getTranscript(id, "zh-tw");
     }
-    const originParagraphs = origin.data.translation.paragraphs as any[];
-    const targetParagraphs = target.data.translation.paragraphs as any[];
+    const originParagraphs = origin.data.translation.paragraphs as Paragraph[];
+    const targetParagraphs = target.data.translation.paragraphs as Paragraph[];
     // failed
     if (originParagraphs.length !== targetParagraphs.length) {
       return [];
     }
-    return originParagraphs.map((originParagraph: any, i) => {
+    return originParagraphs.map((originParagraph, i) => {
       return [
         joinCues(originParagraph.cues),
-        joinCues(targetParagraphs[i].cues, ""),
+        joinCues(targetParagraphs[i]?.cues || [], ""),
       ];
     });
   } catch (err) {
@@ -90,3 +111,19 @@ type InferPromise<T> = T extends Promise<infer U> ? U : T;
 export type BilingualDetail = InferPromise<
   ReturnType<typeof getBilingualDetail>
 >;
+
+type Cue = {
+  text: string;
+};
+
+type Paragraph = {
+  cues: Cue[];
+};
+
+interface TranscriptResponse {
+  data: {
+    translation: {
+      paragraphs: Paragraph[];
+    };
+  };
+}
