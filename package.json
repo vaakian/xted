@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.3",
     "@next/font": "^13.1.1",
     "@tanstack/react-query": "^4.16.0",
     "@trpc/client": "^10.0.0",
@@ -16,6 +17,7 @@
     "@trpc/react-query": "^10.0.0",
     "@trpc/server": "^10.0.0",
     "google": "link:@next/font/google",
+    "graphql": "^16.6.0",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

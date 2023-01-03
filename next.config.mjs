@@ -13,5 +13,10 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  // hostname "talkstar-photos.s3.amazonaws.com" is not configured under images in your `next.config.js`
+  images: {
+    unoptimized: true,
+    domains: ["talkstar-photos.s3.amazonaws.com"],
+  },
 };
 export default config;
