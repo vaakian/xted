@@ -12,7 +12,7 @@ export default function Talk({ data }: { data: BilingualDetail }) {
         </title>
       </Head>
 
-      <div className="mx-auto flex max-w-3xl flex-col text-xl">
+      <div className="mx-auto flex max-w-3xl min-w-[352px] flex-col text-xl">
         <Link href={"/"}>
           <h1
             className="border-l-4 border-red-500 pl-2 font-[Georgia] text-2xl text-red-800"
