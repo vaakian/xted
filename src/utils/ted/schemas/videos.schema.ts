@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
 export const GET_VIDEOS = gql`
   query getVideos($language: String = "en", $first: Int = 10, $after: String) {
@@ -47,72 +47,72 @@ export const GET_VIDEOS = gql`
       }
     }
   }
-`;
+`
 
 export interface VideosData {
-  videos: Videos;
+  videos: Videos
 }
 
 export interface Videos {
-  edges: VideosEdge[];
+  edges: VideosEdge[]
 }
 
 export interface VideosEdge {
-  node: PurpleNode;
-  cursor: string;
+  node: PurpleNode
+  cursor: string
 }
 
 export interface PurpleNode {
-  videometricsVideoId: string;
-  id: string;
-  title: string;
-  description: string;
-  duration: number;
-  slug: string;
-  publishedSubtitleLanguages: PublishedSubtitleLanguages;
-  primaryImageSet: PrimaryImageSet[];
-  canonicalUrl: string;
-  nativeDownloads: NativeDownloads;
-  audioDownload: string;
-  videoDownloads: VideoDownloads;
+  videometricsVideoId: string
+  id: string
+  title: string
+  description: string
+  duration: number
+  slug: string
+  publishedSubtitleLanguages: PublishedSubtitleLanguages
+  primaryImageSet: PrimaryImageSet[]
+  canonicalUrl: string
+  nativeDownloads: NativeDownloads
+  audioDownload: string
+  videoDownloads: VideoDownloads
 }
 
 export interface NativeDownloads {
-  high: string;
-  medium: string;
+  high: string
+  medium: string
 }
 
 export interface PrimaryImageSet {
-  url: string;
-  aspectRatio: AspectRatio;
+  url: string
+  aspectRatio: AspectRatio
 }
 
 export interface AspectRatio {
-  name: string;
+  name: string
 }
 
 export interface PublishedSubtitleLanguages {
-  edges: PublishedSubtitleLanguagesEdge[];
+  edges: PublishedSubtitleLanguagesEdge[]
 }
 
 export interface PublishedSubtitleLanguagesEdge {
-  node: FluffyNode;
+  node: FluffyNode
 }
 
 export interface FluffyNode {
-  iso6391: string;
-  iso6393: string;
-  isRtl: boolean;
-  ianaSubtag: string;
-  endonym: string;
-  englishName: string;
-  internalLanguageCode: string;
+  iso6391: string
+  iso6393: string
+  isRtl: boolean
+  ianaSubtag: string
+  endonym: string
+  englishName: string
+  internalLanguageCode: string
 }
 
 export interface VideoDownloads {
-  nodes: NodeElement[];
+  nodes: NodeElement[]
 }
 
 export interface NodeElement {
-  url: string;
+  url: string
 }

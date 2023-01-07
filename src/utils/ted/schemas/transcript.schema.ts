@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
 export const GET_TRANSCRIPT = gql`
   query getTranscript($language: String!, $videoId: ID!) {
@@ -11,21 +11,21 @@ export const GET_TRANSCRIPT = gql`
       }
     }
   }
-`;
+`
 
 export interface TranscriptData {
-  translation: Translation;
+  translation: Translation
 }
 
 export interface Translation {
-  paragraphs: Paragraph[];
+  paragraphs: Paragraph[]
 }
 
 export interface Paragraph {
-  cues: Cue[];
+  cues: Cue[]
 }
 
 export interface Cue {
-  text: string;
-  time: number;
+  text: string
+  time: number
 }

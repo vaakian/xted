@@ -1,17 +1,16 @@
-import { type NextPage } from "next";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { Navbar } from "../components/Navbar";
+import { type NextPage } from 'next'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { Navbar } from '../components/Navbar'
 
 // https://www.ted.com/talks/tawanda_kanhema_my_journey_mapping_the_uncharted_world/transcript
 // https://www.ted.com/talks/tawanda_kanhema_my_journey_mapping_the_uncharted_world
 function splitTedLink(link: string) {
-  if (link.startsWith("https://www.ted.com/talks/")) {
-    return link.split("talks/")[1]?.split("/")[0];
-  } else {
-    return link;
-  }
+  if (link.startsWith('https://www.ted.com/talks/'))
+    return link.split('talks/')[1]?.split('/')[0]
+  else
+    return link
 }
 const Home: NextPage = () => {
   return (
@@ -30,17 +29,17 @@ const Home: NextPage = () => {
         </div>
       </main>
     </>
-  );
-};
+  )
+}
 
 function Form() {
-  const [link, setLink] = useState("brittney_cooper_the_racial_politics_of_time");
-  const router = useRouter();
+  const [link, setLink] = useState('brittney_cooper_the_racial_politics_of_time')
+  const router = useRouter()
   function handleLoad() {
-    const title = splitTedLink(link);
+    const title = splitTedLink(link)
     if (title) {
       // go to talk/[title]
-      router.push(`/talk/${title}`);
+      router.push(`/talk/${title}`)
     }
   }
   return (
@@ -48,8 +47,8 @@ function Form() {
       <input
         className="text-main-600 caret-main-500 shadow-main-300/90 placeholder:text-main-400 inline-block h-[3.1rem] w-[70%] max-w-2xl overflow-hidden rounded-2xl border-[1px] bg-gray-100 px-5 text-center text-xl font-medium text-gray-500 outline-none transition-all duration-300 placeholder:select-none placeholder:font-normal focus:border-gray-200 focus:bg-white focus:shadow-[0_0_1.5rem_var(--tw-shadow-color)]"
         placeholder="link or title"
-        onChange={(e) => setLink(e.target.value)}
-        onKeyDown={(e) => (e.key === "Enter" ? handleLoad() : null)}
+        onChange={e => setLink(e.target.value)}
+        onKeyDown={e => (e.key === 'Enter' ? handleLoad() : null)}
         value={link}
       ></input>
       <button
@@ -59,7 +58,7 @@ function Form() {
         Go
       </button>
     </div>
-  );
+  )
 }
 
 function BannerHeading() {
@@ -71,12 +70,12 @@ function BannerHeading() {
       </span>
       <span className="text-gr"> / </span>
       <span className="underline decoration-indigo-500 hover:text-indigo-600">
-        title{" "}
+        title{' '}
       </span>
       <span>to get your </span>
       <span>transcript</span>
     </h3>
-  );
+  )
 }
 
-export default Home;
+export default Home

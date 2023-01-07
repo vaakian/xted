@@ -1,9 +1,9 @@
-import type { BilingualDetail } from "@/utils/ted/ted";
+import type { BilingualDetail } from '@/utils/ted/ted'
 
 export default function Paragraphs({
   paragraphs,
 }: {
-  paragraphs: BilingualDetail["paragraphs"];
+  paragraphs: BilingualDetail['paragraphs']
 }) {
   return (
     <>
@@ -14,5 +14,5 @@ export default function Paragraphs({
         </div>
       ))}
     </>
-  );
+  )
 }

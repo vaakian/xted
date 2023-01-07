@@ -1,14 +1,13 @@
-import { type AppType } from "next/app";
+import { type AppType } from 'next/app'
 
-import { trpc } from "@/utils/trpc";
+import { Rubik } from '@next/font/google'
+import { trpc } from '@/utils/trpc'
 
-import { Rubik } from '@next/font/google';
-import "@/styles/globals.css";
-
+import '@/styles/globals.css'
 
 const rubik = Rubik({
   weight: ['400', '500'],
-  display: 'swap'
+  display: 'swap',
 })
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
@@ -23,6 +22,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     <Component {...pageProps} />
     </>
   )
-};
+}
 
-export default trpc.withTRPC(MyApp);
+export default trpc.withTRPC(MyApp)

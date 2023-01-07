@@ -1,27 +1,25 @@
-import { type NextPage } from "next";
-import { useRouter } from "next/router";
-import Head from "next/head";
-import { useEffect } from "react";
-import Talk from "@/components/Talk";
-import { trpc } from "@/utils/trpc";
-import Link from "next/link";
+import { type NextPage } from 'next'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import { useEffect } from 'react'
+import Link from 'next/link'
+import Talk from '@/components/Talk'
+import { trpc } from '@/utils/trpc'
 
 const TalkPage: NextPage = () => {
-  const router = useRouter();
-  const talkId = router.query.talkId as string;
+  const router = useRouter()
+  const talkId = router.query.talkId as string
 
   const { data, isFetching, refetch } = trpc.transcript.bilingualDetail.useQuery(
     { id: talkId as string },
-    { enabled: false, cacheTime: Infinity }
-  );
+    { enabled: false, cacheTime: Infinity },
+  )
 
   useEffect(() => {
-    if (talkId) {
-      refetch();
-    }
-  }, [refetch, talkId]);
+    if (talkId)
+      refetch()
+  }, [refetch, talkId])
 
- 
   // no talkId provided
   if (!talkId) {
     return (
@@ -30,13 +28,12 @@ const TalkPage: NextPage = () => {
         <span className="text-stone-500 underline">talkId</span>`</p>
         <Link className="text-2xl text-gray-400" href={'/'}>{'<= '}Go back</Link>
       </h1>
-    );
+    )
   }
 
   // still fetch
-  if (isFetching) {
-    return <Loading />;
-  }
+  if (isFetching)
+    return <Loading />
 
   return (
     <>
@@ -47,8 +44,8 @@ const TalkPage: NextPage = () => {
       </Head>
       <div className="m-2">{data && <Talk data={data} />}</div>
     </>
-  );
-};
+  )
+}
 
 function Loading() {
   // make a nice loading spin using tailwind
@@ -77,7 +74,7 @@ function Loading() {
       </svg>
       <span className="sr-only">Loading...</span>
     </div>
-  );
+  )
 }
 
-export default TalkPage;
+export default TalkPage

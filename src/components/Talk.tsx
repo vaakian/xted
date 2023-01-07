@@ -1,7 +1,7 @@
-import Head from "next/head";
-import Link from "next/link";
-import type { BilingualDetail } from "@/utils/ted/ted";
-import Paragraphs from "./Paragraphs";
+import Head from 'next/head'
+import Link from 'next/link'
+import Paragraphs from './Paragraphs'
+import type { BilingualDetail } from '@/utils/ted/ted'
 
 export default function Talk({ data }: { data: BilingualDetail }) {
   return (
@@ -13,15 +13,15 @@ export default function Talk({ data }: { data: BilingualDetail }) {
       </Head>
 
       <div className="mx-auto flex max-w-3xl min-w-[352px] flex-col text-xl">
-        <Link href={"/"}>
+        <Link href={'/'}>
           <h1
             className="border-l-4 border-red-500 pl-2 font-[Georgia] text-2xl text-red-800"
-            dangerouslySetInnerHTML={{ __html: data.title ?? "" }}
+            dangerouslySetInnerHTML={{ __html: data.title ?? '' }}
           ></h1>
         </Link>
         <h2 className="text-right italic text-gray-600">{data.author}</h2>
         <Paragraphs paragraphs={data.paragraphs} />
       </div>
     </>
-  );
+  )
 }
