@@ -38,6 +38,7 @@ export const transcriptRouter = router({
         return transcriptCache[input.id]
 
       const detail = await getBilingualDetail(input.id)
+
       if (detail)
         transcriptCache[input.id] = detail
 

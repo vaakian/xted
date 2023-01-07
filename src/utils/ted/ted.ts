@@ -1,21 +1,32 @@
-import type { Cue, Paragraph } from './schemas'
-import { getTranscript } from './tedGraphql'
+import type { Cue } from './schemas'
+import { getTranscript, getVideoDetail } from './tedGraphql'
 
+/**
+ *
+ * @param id the id of the talk, similar to the title.
+ * @param lang the language of the talk, default to ['en', 'zh-cn']
+ * @returns
+ */
 export async function getBilingualDetail(
   id = 'brittney_cooper_the_racial_politics_of_time',
   lang: [string, string] = ['en', 'zh-cn'],
 ) {
-  const [detail, paragraphs] = await Promise.all([
-    getDetail(id),
-    getBilingual(id, lang),
-  ])
+  const paragraphs = await getBilingual(id, lang)
+  const detail = await getVideoDetail(id)
+
   return {
-    ...detail,
+    detail,
     paragraphs,
     id,
   }
 }
 
+/**
+ *
+ * @param cues A cue is a sentence, or a part of a sentence.
+ * @param joiner the joiner between cues, default to ' '
+ * @returns the joined paragraph
+ */
 export function joinCues(cues: Cue[], joiner = ' ') {
   const isEn = !!joiner
   return (
@@ -27,6 +38,13 @@ export function joinCues(cues: Cue[], joiner = ' ') {
       .replace(/\s{2,}/g, ' ')
   )
 }
+
+/**
+ *
+ * @param id
+ * @param lang
+ * @returns
+ */
 export async function getBilingual(
   id = 'brittney_cooper_the_racial_politics_of_time',
   lang: [string, string] = ['en', 'zh-cn'],
@@ -43,8 +61,8 @@ export async function getBilingual(
       // try to get zh-tw
       target = await getTranscript(id, 'zh-tw')
     }
-    const originParagraphs = origin.data.translation.paragraphs as Paragraph[]
-    const targetParagraphs = target.data.translation.paragraphs as Paragraph[]
+    const originParagraphs = origin.data.translation.paragraphs
+    const targetParagraphs = target.data.translation.paragraphs
     // failed
     if (originParagraphs.length !== targetParagraphs.length)
       return []
@@ -58,18 +76,6 @@ export async function getBilingual(
   }
   catch (err) {
     return []
-  }
-}
-
-async function getDetail(id = 'brittney_cooper_the_racial_politics_of_time') {
-  const html = await fetch(`https://www.ted.com/talks/${id}`).then(res =>
-    res.text(),
-  )
-  // match content in <title></title>
-  const [author, title] = (html.match(/<title>(.*)<\/title>/) || ['', ':', ''] as const)[1].split(':')
-  return {
-    author,
-    title: title?.split('|')[0],
   }
 }
 

@@ -2,8 +2,8 @@ import {
   ApolloClient,
   InMemoryCache,
 } from '@apollo/client'
-import type { TranscriptData } from './schemas'
-import { GET_TRANSCRIPT } from './schemas'
+import type { TranscriptData, VideosData } from './schemas'
+import { GET_TRANSCRIPT, GET_VIDEOS } from './schemas'
 
 export const tedGraphQLClient = new ApolloClient({
   uri: 'https://graphql.ted.com',
@@ -24,4 +24,10 @@ export async function getTranscript(title: string, lang: string) {
     },
   })
   return response
+}
+
+export async function getVideoDetail(title: string) {
+  const response = await tedQuery<VideosData>({ query: GET_VIDEOS, variables: { id: title } })
+  const videos = response.data.videos.edges[0]
+  return videos
 }

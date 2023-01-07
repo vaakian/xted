@@ -1,10 +1,11 @@
 import { gql } from '@apollo/client'
 
 export const GET_VIDEOS = gql`
-  query getVideos($language: String = "en", $first: Int = 10, $after: String) {
-    videos(language: $language, channel: FEATURED, first: $first, after: $after) {
+  query getVideos($id: [String!], $language: String = "en", $first: Int = 10, $after: String) {
+    videos(slug: $id, language: $language, channel: FEATURED, first: $first, after: $after) {
       edges {
         node {
+          # playerData
           videometricsVideoId
           id
           title
@@ -12,6 +13,23 @@ export const GET_VIDEOS = gql`
           duration
           # 同样是标题id
           slug
+          speakers {
+            edges {
+              node {
+                firstname
+                lastname
+                # whyListen
+                # id
+                # middlename
+              }
+            }
+          }
+          subtitledDownloads {
+            low
+            high
+            internalLanguageCode
+            languageName
+          }
           publishedSubtitleLanguages(first: 999) {
             edges {
               node {
@@ -69,6 +87,8 @@ export interface PurpleNode {
   description: string
   duration: number
   slug: string
+  speakers: Speakers
+  subtitledDownloads: SubtitledDownload[]
   publishedSubtitleLanguages: PublishedSubtitleLanguages
   primaryImageSet: PrimaryImageSet[]
   canonicalUrl: string
@@ -107,6 +127,26 @@ export interface FluffyNode {
   endonym: string
   englishName: string
   internalLanguageCode: string
+}
+
+export interface Speakers {
+  edges: SpeakersEdge[]
+}
+
+export interface SpeakersEdge {
+  node: TentacledNode
+}
+
+export interface TentacledNode {
+  firstname: string
+  lastname: string
+}
+
+export interface SubtitledDownload {
+  low: string
+  high: string
+  internalLanguageCode: string
+  languageName: string
 }
 
 export interface VideoDownloads {
