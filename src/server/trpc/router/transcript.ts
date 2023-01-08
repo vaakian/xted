@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { publicProcedure, router } from '../trpc'
 import type { BilingualDetail } from '@/utils/ted/ted'
 import { getBilingualDetail } from '@/utils/ted/ted'
+import { getVideos } from '@/utils/ted/tedGraphql'
 
 function readCache() {
   try {
@@ -30,7 +31,7 @@ const transcriptCache: Record<string, BilingualDetail> = new Proxy(
   },
 )
 
-export const transcriptRouter = router({
+export const tedRouter = router({
   bilingualDetail: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input }) => {
@@ -43,5 +44,11 @@ export const transcriptRouter = router({
         transcriptCache[input.id] = detail
 
       return detail
+    }),
+  videos: publicProcedure
+    .input(z.object({ id: z.string().optional() }).optional())
+    .query(async ({ input }) => {
+      const videos = await getVideos(input)
+      return videos
     }),
 })

@@ -31,3 +31,13 @@ export async function getVideoDetail(title: string) {
   const videos = response.data.videos.edges[0]
   return videos
 }
+
+export async function getVideos(variables: {
+  id?: string
+  language?: string
+  first?: string
+  after?: string
+} = {}) {
+  const response = await tedQuery<VideosData>({ query: GET_VIDEOS, variables })
+  return response
+}

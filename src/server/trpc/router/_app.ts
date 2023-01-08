@@ -1,8 +1,8 @@
 import { router } from '../trpc'
-import { transcriptRouter } from './transcript'
+import { tedRouter } from './transcript'
 
 export const appRouter = router({
-  transcript: transcriptRouter,
+  ted: tedRouter,
 })
 
 // export type definition of API

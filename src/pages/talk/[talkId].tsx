@@ -10,7 +10,7 @@ const TalkPage: NextPage = () => {
   const router = useRouter()
   const talkId = router.query.talkId as string
 
-  const { data, isFetching, refetch } = trpc.transcript.bilingualDetail.useQuery(
+  const { data, isFetching, refetch } = trpc.ted.bilingualDetail.useQuery(
     { id: talkId as string },
     { enabled: false, cacheTime: Infinity },
   )

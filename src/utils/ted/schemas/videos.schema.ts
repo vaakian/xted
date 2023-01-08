@@ -76,11 +76,11 @@ export interface Videos {
 }
 
 export interface VideosEdge {
-  node: PurpleNode
+  node: VideoNode
   cursor: string
 }
 
-export interface PurpleNode {
+export interface VideoNode {
   videometricsVideoId: string
   id: string
   title: string
