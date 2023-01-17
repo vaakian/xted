@@ -3,10 +3,9 @@ import Link from 'next/link'
 import { getVideos } from '@/utils/ted/tedGraphql'
 import type { VideoNode, VideosData } from '@/utils/ted/schemas'
 
-const Explore: NextPage<{ videos: VideosData; name: number }> = ({ videos, name }) => {
+const Explore: NextPage<{ videos: VideosData }> = ({ videos }) => {
   return (
     <div>
-      {name}
       {videos && videos.videos.edges.map(edge => <Video video={edge.node} key={edge.cursor}></Video>)}
     </div>
   )
@@ -31,7 +30,6 @@ export async function getServerSideProps() {
   return {
     props: {
       videos: videos.data,
-      name: 123,
       // will be passed to the page component as props
     },
   }

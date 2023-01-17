@@ -1,5 +1,6 @@
 import { type NextPage } from 'next'
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Navbar } from '../components/Navbar'
@@ -9,8 +10,7 @@ import { Navbar } from '../components/Navbar'
 function splitTedLink(link: string) {
   if (link.startsWith('https://www.ted.com/talks/'))
     return link.split('talks/')[1]?.split('/')[0]
-  else
-    return link
+  else return link
 }
 const Home: NextPage = () => {
   return (
@@ -26,6 +26,7 @@ const Home: NextPage = () => {
         <div className="flex h-full w-full flex-col items-center bg-gradient-to-t from-[#ffffffEF] to-[#ffffffAA] pt-[30vh]">
           <BannerHeading />
           <Form />
+          <Link className='text-gray-500 mt-10' href='/explore'>{'=> '}Explore</Link>
         </div>
       </main>
     </>
@@ -33,7 +34,9 @@ const Home: NextPage = () => {
 }
 
 function Form() {
-  const [link, setLink] = useState('brittney_cooper_the_racial_politics_of_time')
+  const [link, setLink] = useState(
+    'brittney_cooper_the_racial_politics_of_time',
+  )
   const router = useRouter()
   function handleLoad() {
     const title = splitTedLink(link)
